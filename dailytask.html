@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Tasks | CareerMate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:#f1f5f9;
+}
+
+.container{
+display:flex;
+height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:#0f172a;
+color:white;
+position:fixed;
+left:0;
+top:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
+}
+
+.logo-box{
+background:#6366f1;
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-weight:bold;
+}
+
+.logo p{
+margin-top:10px;
+font-weight:bold;
+}
+
+.logo span{
+font-size:12px;
+color:#9ca3af;
+}
+
+.menu{
+list-style:none;
+margin-top:30px;
+}
+
+.menu li{
+padding:12px;
+border-radius:8px;
+margin-bottom:8px;
+cursor:pointer;
+}
+
+.menu li:hover{
+background:#1e293b;
+}
+
+.menu .active{
+background:#2563eb;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:12px;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:40px;
+height:100vh;
+overflow-y:auto;
+flex:1;
+}
+
+.sub{
+color:#64748b;
+margin-bottom:30px;
+}
+
+/* TASK HEADER */
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.task-count{
+background:white;
+padding:10px 16px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.05);
+font-weight:bold;
+color:#334155;
+}
+
+/* PROGRESS */
+
+.progress-card{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
+
+.progress-container{
+width:100%;
+height:12px;
+background:#e2e8f0;
+border-radius:20px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:linear-gradient(to right,#4f46e5,#9333ea);
+transition:0.4s;
+}
+
+/* TASK GRID */
+
+.tasks-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+/* TASK CARD */
+
+.task-card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+transition:0.3s;
+border:1px solid transparent;
+}
+
+.task-card:hover{
+transform:translateY(-3px);
+}
+
+.task-card.completed{
+background:#f0fdf4;
+border:1px solid #bbf7d0;
+}
+
+.category{
+display:inline-block;
+background:#e0e7ff;
+color:#4338ca;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.task-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.task-desc{
+color:#64748b;
+font-size:14px;
+margin-bottom:15px;
+}
+
+.task-meta{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+font-size:14px;
+gap:10px;
+}
+
+.time{
+color:#64748b;
+}
+
+.status-badge{
+padding:6px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+}
+
+.status-pending{
+background:#fff7ed;
+color:#c2410c;
+}
+
+.status-completed{
+background:#dcfce7;
+color:#15803d;
+}
+
+.complete-btn{
+width:100%;
+background:linear-gradient(to right,#4f46e5,#9333ea);
+border:none;
+color:white;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.complete-btn:disabled{
+background:#cbd5e1;
+cursor:not-allowed;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div>
+
+<div class="logo">
+<div class="logo-box">CM</div>
+<p>CareerMate</p>
+<span>AI Career Guide</span>
+</div>
+
+<ul class="menu">
+<li onclick="window.location.href='dashboard.html'">Dashboard</li>
+<li onclick="window.location.href='roadmap.html'">Roadmap</li>
+<li onclick="window.location.href='courses.html'">Courses</li>
+<li onclick="window.location.href='job.html'">Jobs</li>
+<li onclick="window.location.href='mock.html'">Mock Interview</li>
+<li class="active">Daily Tasks</li>
+</ul>
+
+</div>
+
+<button class="logout" onclick="window.location.href='index.html'">Logout</button>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>Daily Learning Tasks</h1>
+<p class="sub">Stay on track with your personalized career roadmap.</p>
+
+<div class="top-bar">
+    <p style="margin-bottom:0;">Today's personalized learning plan</p>
+    <div class="task-count" id="task-count">0/0 Tasks Completed</div>
+</div>
+
+<div class="progress-card">
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+</div>
+
+<div class="tasks-grid" id="tasks-container"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const tasks = [
+    {
+        id: 1,
+        title: "Practice JavaScript Array Methods",
+        category: "Coding",
+        desc: "Map, Filter, and Reduce exercises for data manipulation.",
+        time: "30 mins",
+        status: "Pending"
+    },
+    {
+        id: 2,
+        title: "Build a Simple ToDo App",
+        category: "Development",
+        desc: "Apply DOM manipulation skills to create a functional app.",
+        time: "60 mins",
+        status: "Pending"
+    },
+    {
+        id: 3,
+        title: "Learn React Components",
+        category: "Frameworks",
+        desc: "Understand functional vs class components and props.",
+        time: "45 mins",
+        status: "Pending"
+    },
+    {
+        id: 4,
+        title: "Create REST API using Node.js",
+        category: "Backend",
+        desc: "Set up a basic Express server with GET and POST routes.",
+        time: "90 mins",
+        status: "Pending"
+    }
+];
+
+const container = document.getElementById("tasks-container");
+const progressBar = document.getElementById("progress-bar");
+const taskCountText = document.getElementById("task-count");
+
+function renderTasks() {
+    container.innerHTML = "";
+    let completedCount = 0;
+
+    tasks.forEach(task => {
+        const isCompleted = task.status === "Completed";
+        if (isCompleted) completedCount++;
+
+        const card = document.createElement("div");
+        card.className = `task-card ${isCompleted ? "completed" : ""}`;
+
+        card.innerHTML = `
+            <span class="category">${task.category}</span>
+            <div class="task-title">${task.title}</div>
+            <div class="task-desc">${task.desc}</div>
+
+            <div class="task-meta">
+                <span class="time">⏱ ${task.time}</span>
+                <span class="status-badge ${isCompleted ? "status-completed" : "status-pending"}">
+                    ${task.status}
+                </span>
+            </div>
+
+            <button class="complete-btn" onclick="markComplete(${task.id})" ${isCompleted ? "disabled" : ""}>
+                ${isCompleted ? "Task Finished" : "Mark as Completed"}
+            </button>
+        `;
+
+        container.appendChild(card);
+    });
+
+    updateProgress(completedCount);
+}
+
+function markComplete(id) {
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex !== -1) {
+        tasks[taskIndex].status = "Completed";
+        renderTasks();
+    }
+}
+
+function updateProgress(completed) {
+    const total = tasks.length;
+    const percentage = (completed / total) * 100;
+
+    progressBar.style.width = percentage + "%";
+    taskCountText.innerText = `${completed}/${total} Tasks Completed`;
+}
+
+renderTasks();
+
+</script>
+
+</body>
+</html>

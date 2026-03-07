@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recommended Jobs</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:#f1f5f9;
+}
+
+.container{
+display:flex;
+height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:#0f172a;
+color:white;
+position:fixed;
+left:0;
+top:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
+}
+
+.logo-box{
+background:#6366f1;
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-weight:bold;
+}
+
+.logo p{
+margin-top:10px;
+font-weight:bold;
+}
+
+.logo span{
+font-size:12px;
+color:#9ca3af;
+}
+
+.menu{
+list-style:none;
+margin-top:30px;
+}
+
+.menu li{
+padding:12px;
+border-radius:8px;
+margin-bottom:8px;
+cursor:pointer;
+}
+
+.menu li:hover{
+background:#1e293b;
+}
+
+.menu .active{
+background:#2563eb;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:12px;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:40px;
+height:100vh;
+overflow-y:auto;
+flex:1;
+}
+
+.sub{
+color:#64748b;
+margin-bottom:30px;
+}
+
+/* JOB CARD */
+
+.job-card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-bottom:20px;
+position:relative;
+}
+
+.job-title{
+font-size:20px;
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.company{
+color:#64748b;
+font-size:14px;
+margin-bottom:10px;
+}
+
+.desc{
+margin-bottom:15px;
+color:#475569;
+}
+
+.skills span{
+background:#e2e8f0;
+padding:5px 10px;
+border-radius:15px;
+font-size:12px;
+margin-right:6px;
+}
+
+.salary{
+margin-top:15px;
+font-weight:bold;
+}
+
+/* MATCH BADGE */
+
+.match{
+position:absolute;
+right:20px;
+top:20px;
+background:#d1fae5;
+color:#047857;
+padding:10px 14px;
+border-radius:10px;
+font-weight:bold;
+}
+
+/* APPLY BUTTON FIX */
+
+.apply-container{
+display:flex;
+justify-content:flex-end;
+margin-top:20px;
+}
+
+.apply-btn{
+background:linear-gradient(to right,#4f46e5,#9333ea);
+border:none;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div>
+
+<div class="logo">
+<div class="logo-box">CM</div>
+<p>CareerMate</p>
+<span>AI Career Guide</span>
+</div>
+
+<ul class="menu">
+<li onclick="window.location.href = 'dashboard.html'">Dashboard</li>
+
+<li onclick="window.location.href = 'roadmap.html'">Roadmap</li>
+<li onclick="window.location.href = 'courses.html'">Courses</li>
+<li class="active">Jobs</li>
+<li onclick="window.location.href = 'mock.html'">Mock Interview</li>
+<li onclick="window.location.href='dailytask.html'">Daily Tasks</li>
+</ul>
+
+</div>
+
+<button class="logout" onclick="window.location.href='index.html'">Logout</button>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>Recommended Jobs</h1>
+<p class="sub">Job opportunities matching your skills and career goal</p>
+
+<p style="margin-bottom:20px;">Found 3 positions</p>
+
+
+<!-- JOB 1 -->
+
+<div class="job-card">
+
+<div class="match">75% Match</div>
+
+<div class="job-title">Junior Frontend Developer</div>
+
+<div class="company">TechStartup • Seattle • Full-time</div>
+
+<div class="desc">
+Join our team and grow your skills in modern frontend development.
+</div>
+
+<div class="skills">
+<b>Required Skills:</b><br><br>
+<span>JavaScript</span>
+<span>HTML/CSS</span>
+<span>React</span>
+
+<br><br>
+
+<b>Nice to Have:</b><br><br>
+<span>TypeScript</span>
+<span>Redux</span>
+</div>
+
+<div class="salary">
+Salary Range: $80,000 - $110,000
+</div>
+
+<div class="apply-container">
+<button class="apply-btn" onclick="applyJob('Junior Frontend Developer')">
+Apply Now
+</button>
+</div>
+
+</div>
+
+
+<!-- JOB 2 -->
+
+<div class="job-card">
+
+<div class="match">82% Match</div>
+
+<div class="job-title">Backend Developer</div>
+
+<div class="company">CloudTech • Remote • Full-time</div>
+
+<div class="desc">
+Build scalable backend services and APIs for cloud applications.
+</div>
+
+<div class="skills">
+<b>Required Skills:</b><br><br>
+<span>Node.js</span>
+<span>Express</span>
+<span>MongoDB</span>
+</div>
+
+<div class="salary">
+Salary Range: $90,000 - $120,000
+</div>
+
+<div class="apply-container">
+<button class="apply-btn" onclick="applyJob('Backend Developer')">
+Apply Now
+</button>
+</div>
+
+</div>
+
+
+<!-- JOB 3 -->
+
+<div class="job-card">
+
+<div class="match">69% Match</div>
+
+<div class="job-title">Full Stack Developer</div>
+
+<div class="company">DevSolutions • New York • Full-time</div>
+
+<div class="desc">
+Work on both frontend and backend to build full web applications.
+</div>
+
+<div class="skills">
+<b>Required Skills:</b><br><br>
+<span>React</span>
+<span>Node.js</span>
+<span>SQL</span>
+</div>
+
+<div class="salary">
+Salary Range: $100,000 - $130,000
+</div>
+
+<div class="apply-container">
+<button class="apply-btn" onclick="applyJob('Full Stack Developer')">
+Apply Now
+</button>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* Apply button dummy */
+
+function applyJob(job){
+alert("Application sent for: " + job + " 🚀");
+}
+
+/* Sidebar dummy navigation */
+
+function page(name){
+alert("Opening " + name + " page");
+}
+
+/* Logout */
+
+function logout(){
+alert("Logged out successfully");
+}
+
+</script>
+
+</body>
+</html>

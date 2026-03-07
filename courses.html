@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recommended Courses</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f1f5f9;
+}
+
+/* LAYOUT */
+
+.container{
+display:flex;
+height:100vh;
+overflow:hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+height:100vh;
+background:#0f172a;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
+}
+
+.logo-box{
+background:#6366f1;
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-weight:bold;
+}
+
+.logo p{
+margin-top:10px;
+font-weight:bold;
+}
+
+.logo span{
+font-size:12px;
+color:#9ca3af;
+}
+
+.menu{
+list-style:none;
+margin-top:30px;
+}
+
+.menu li{
+padding:12px;
+border-radius:8px;
+margin-bottom:8px;
+cursor:pointer;
+}
+
+.menu li:hover{
+background:#1e293b;
+}
+
+.menu .active{
+background:#2563eb;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:12px;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:40px;
+overflow-y:auto;
+}
+
+.sub{
+color:#64748b;
+margin-bottom:20px;
+}
+
+/* FILTER */
+
+.filter-box{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-bottom:30px;
+}
+
+.search{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #e2e8f0;
+margin-bottom:20px;
+}
+
+.filter-row{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.tags{
+margin-top:10px;
+}
+
+.tag{
+display:inline-block;
+padding:6px 12px;
+background:#e2e8f0;
+border-radius:20px;
+margin-right:8px;
+font-size:12px;
+cursor:pointer;
+}
+
+.tag.active{
+background:linear-gradient(to right,#4f46e5,#9333ea);
+color:white;
+}
+
+/* COURSES */
+
+.courses{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.course-card{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.course-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.badge{
+background:#dbeafe;
+color:#1e40af;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+.level{
+background:#fee2e2;
+color:#b91c1c;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+.course-title{
+font-size:18px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.course-desc{
+font-size:14px;
+color:#64748b;
+margin-bottom:20px;
+}
+
+.course-footer{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+margin-bottom:10px;
+}
+
+.price{
+color:#2563eb;
+font-weight:bold;
+}
+
+.free{
+color:#16a34a;
+font-weight:bold;
+}
+
+.open-btn{
+background:linear-gradient(to right,#4f46e5,#9333ea);
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+float:right;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div>
+
+<div class="logo">
+<div class="logo-box">CM</div>
+<p>CareerMate</p>
+<span>AI Career Guide</span>
+</div>
+
+<ul class="menu">
+<li onclick="window.location.href = 'dashboard.html'">Dashboard</li>
+
+<li onclick="window.location.href = 'roadmap.html'">Roadmap</li>
+<li class="active">Courses</li>
+<li onclick="window.location.href = 'job.html'">Jobs</li>
+<li onclick="window.location.href = 'mock.html'">Mock Interview</li>
+<li onclick="window.location.href='dailytask.html'">Daily Tasks</li>
+</ul>
+
+</div>
+
+<button class="logout" onclick="logout()">Logout</button>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>Recommended Courses</h1>
+<p class="sub">Curated courses to help you fill your missing skills</p>
+
+<div class="filter-box">
+
+<input class="search" placeholder="Search courses, skills...">
+
+<div class="filter-row">
+
+<div>
+<b>Platform</b>
+<div class="tags">
+<span class="tag active">All Platforms</span>
+<span class="tag">Udemy</span>
+<span class="tag">Coursera</span>
+<span class="tag">FreeCodeCamp</span>
+<span class="tag">YouTube</span>
+</div>
+</div>
+
+<div>
+<b>Level</b>
+<div class="tags">
+<span class="tag active">All Levels</span>
+<span class="tag">Beginner</span>
+<span class="tag">Intermediate</span>
+<span class="tag">Advanced</span>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<p style="margin-bottom:15px;">Found 3 courses</p>
+
+<div class="courses">
+
+<div class="course-card">
+
+<div class="course-top">
+<span class="badge">React</span>
+<span class="level">Advanced</span>
+</div>
+
+<div class="course-title">Advanced React Patterns</div>
+<div class="course-desc">Master advanced React patterns and best practices</div>
+
+<div class="course-footer">
+<span>Udemy</span>
+<span>⭐ 4.8</span>
+</div>
+
+<div class="course-footer">
+<span>12 hours</span>
+<span class="price">$12.99</span>
+</div>
+
+<button class="open-btn" onclick="openCourse('Advanced React Patterns')">
+Open
+</button>
+
+</div>
+
+
+<div class="course-card">
+
+<div class="course-top">
+<span class="badge">Docker</span>
+<span class="level">Intermediate</span>
+</div>
+
+<div class="course-title">Docker Mastery</div>
+<div class="course-desc">Complete Docker training from beginner to expert</div>
+
+<div class="course-footer">
+<span>Udemy</span>
+<span>⭐ 4.7</span>
+</div>
+
+<div class="course-footer">
+<span>20 hours</span>
+<span class="price">$14.99</span>
+</div>
+
+<button class="open-btn" onclick="openCourse('Docker Mastery')">
+Open
+</button>
+
+</div>
+
+
+<div class="course-card">
+
+<div class="course-top">
+<span class="badge">AWS</span>
+<span class="level">Beginner</span>
+</div>
+
+<div class="course-title">AWS Fundamentals</div>
+<div class="course-desc">Learn AWS cloud services and architecture</div>
+
+<div class="course-footer">
+<span>Coursera</span>
+<span>⭐ 4.9</span>
+</div>
+
+<div class="course-footer">
+<span>4 weeks</span>
+<span class="free">Free</span>
+</div>
+
+<button class="open-btn" onclick="openCourse('AWS Fundamentals')">
+Open
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* Course open */
+
+function openCourse(course){
+alert("Opening course: " + course + " 📚");
+}
+
+/* Sidebar navigation */
+
+function openPage(page){
+alert("Opening " + page + " page");
+}
+
+/* Logout */
+
+function logout(){
+alert("Logged out successfully");
+}
+
+/* Tag toggle */
+
+document.querySelectorAll(".tag").forEach(tag=>{
+tag.addEventListener("click",function(){
+
+this.parentElement.querySelectorAll(".tag").forEach(t=>{
+t.classList.remove("active")
+})
+
+this.classList.add("active")
+
+
+
+})
+})
+
+</script>
+
+</body>
+</html>
