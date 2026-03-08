@@ -1,0 +1,7 @@
+﻿John Doe
+Frontend Developer
+
+Skills: HTML, CSS, JavaScript, React, Node.js
+Experience: 3 years building web applications
+
+Missing Skills: TypeScript, Docker, AWS, MongoDB

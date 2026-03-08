@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerMate - Roadmap</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f1f5f9;
+      height:100vh;
+      overflow:hidden;
+      color:#111827;
+    }
+
+    .container{
+      display:flex;
+      height:100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      width:240px;
+      background:#0f172a;
+      color:white;
+      position:fixed;
+      left:0;
+      top:0;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:20px;
+    }
+
+    .logo-box{
+      background:#6366f1;
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      font-weight:bold;
+    }
+
+    .logo p{
+      margin-top:10px;
+      font-weight:bold;
+    }
+
+    .logo span{
+      font-size:12px;
+      color:#9ca3af;
+    }
+
+    .menu{
+      list-style:none;
+      margin-top:30px;
+    }
+
+    .menu li{
+      padding:12px;
+      border-radius:8px;
+      margin-bottom:8px;
+      cursor:pointer;
+    }
+
+    .menu li:hover{
+      background:#1e293b;
+    }
+
+    .menu .active{
+      background:#2563eb;
+    }
+
+    .logout{
+      background:#ef4444;
+      border:none;
+      padding:12px;
+      border-radius:8px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* MAIN */
+    .main{
+      margin-left:240px;
+      width:calc(100% - 240px);
+      height:100vh;
+      overflow-y:auto;
+      padding:24px;
+    }
+
+    .page-title{
+      font-size:30px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .page-sub{
+      color:#6b7280;
+      margin-bottom:18px;
+      font-size:15px;
+    }
+
+    /* TOP PROGRESS CARD */
+    .progress-card{
+      background:#fff;
+      border-radius:18px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.06);
+      padding:20px;
+      margin-bottom:20px;
+      border:1px solid #ececf1;
+    }
+
+    .progress-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .progress-header h3{
+      font-size:18px;
+    }
+
+    .progress-percent{
+      font-size:16px;
+      font-weight:700;
+      color:#2563eb;
+    }
+
+    .progress-track{
+      width:100%;
+      height:12px;
+      background:#e5e7eb;
+      border-radius:999px;
+      overflow:hidden;
+      margin-bottom:10px;
+    }
+
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(to right,#60a5fa,#8b5cf6);
+      border-radius:999px;
+      transition:width 0.35s ease;
+    }
+
+    .progress-note{
+      color:#6b7280;
+      font-size:14px;
+    }
+
+    /* ROADMAP */
+    .roadmap-list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .week-card{
+      background:#fff;
+      border-radius:18px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.06);
+      overflow:hidden;
+      border:1px solid #ececf1;
+    }
+
+    .week-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:20px;
+      cursor:pointer;
+    }
+
+    .week-left{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .week-number{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      background:#f3e8ff;
+      color:#7c3aed;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:18px;
+      flex-shrink:0;
+    }
+
+    .week-text h3{
+      font-size:22px;
+      margin-bottom:6px;
+    }
+
+    .week-text p{
+      color:#4b5563;
+      font-size:15px;
+    }
+
+    .arrow{
+      font-size:22px;
+      color:#94a3b8;
+      transition:0.3s;
+      user-select:none;
+    }
+
+    .week-card.active .arrow{
+      transform:rotate(180deg);
+    }
+
+    .week-content{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.4s ease;
+      border-top:1px solid #f1f5f9;
+      background:#fff;
+    }
+
+    .week-card.active .week-content{
+      max-height:700px;
+    }
+
+    .content-inner{
+      padding:22px 20px 20px;
+    }
+
+    .section-title{
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:14px;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:24px;
+    }
+
+    .tag{
+      background:#dbeafe;
+      color:#2563eb;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .task-title{
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:14px;
+    }
+
+    .task-list{
+      list-style:none;
+      margin-bottom:24px;
+    }
+
+    .task-list li{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+      font-size:16px;
+      color:#374151;
+    }
+
+    .task-list input{
+      width:18px;
+      height:18px;
+      cursor:pointer;
+      accent-color:#2563eb;
+    }
+
+    .mini-project{
+      background:#faf5ff;
+      border:1px solid #ead5ff;
+      border-radius:14px;
+      padding:18px;
+      color:#6b21a8;
+    }
+
+    .mini-project h4{
+      font-size:18px;
+      margin-bottom:10px;
+    }
+
+    .mini-project p{
+      font-size:15px;
+    }
+
+    .week-status{
+      margin-top:12px;
+      font-size:14px;
+      color:#6b7280;
+      font-weight:600;
+    }
+
+    @media(max-width:900px){
+      .sidebar{
+        width:200px;
+      }
+
+      .main{
+        margin-left:200px;
+        width:calc(100% - 200px);
+        padding:16px;
+      }
+
+      .week-text h3{
+        font-size:18px;
+      }
+
+      .week-text p{
+        font-size:13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div>
+      <div class="logo">
+        <div class="logo-box">CM</div>
+        <p>CareerMate</p>
+        <span>AI Career Guide</span>
+      </div>
+
+      <ul class="menu">
+        <li onclick="window.location.href='dashboard.html'">Dashboard</li>
+        <li class="active">Roadmap</li>
+        <li onclick="window.location.href='courses.html'">Courses</li>
+        <li onclick="window.location.href='job.html'">Jobs</li>
+        <li onclick="window.location.href='mock.html'">Mock Interview</li>
+        <li onclick="window.location.href='dailytask.html'">Daily Tasks</li>
+      </ul>
+    </div>
+
+    <button class="logout" onclick="window.location.href='index.html'">Logout</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <h1 class="page-title">Your Learning Roadmap</h1>
+    <p class="page-sub">Personalized 8-week roadmap based on your target role and skill gaps.</p>
+
+    <div class="progress-card">
+      <div class="progress-header">
+        <h3>Overall Progress</h3>
+        <div class="progress-percent" id="progressPercent">0%</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-note" id="progressNote">0 of 24 tasks completed</div>
+    </div>
+
+    <div class="roadmap-list">
+
+      <!-- WEEK 1 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">1</div>
+            <div class="week-text">
+              <h3>Week 1</h3>
+              <p>JavaScript Fundamentals • DOM Manipulation</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">Variables</span>
+              <span class="tag">Functions</span>
+              <span class="tag">DOM Basics</span>
+              <span class="tag">Events</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Learn variables and data types</li>
+              <li><input type="checkbox" class="task-check"> Practice functions and loops</li>
+              <li><input type="checkbox" class="task-check"> Manipulate elements with DOM</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Build a To-Do List app</p>
+            </div>
+            <div class="week-status" id="weekStatus1">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">2</div>
+            <div class="week-text">
+              <h3>Week 2</h3>
+              <p>ES6 Features • Async Programming</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">Arrow Functions</span>
+              <span class="tag">Promises</span>
+              <span class="tag">Async/Await</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Learn ES6 syntax</li>
+              <li><input type="checkbox" class="task-check"> Practice Promises and Async/Await</li>
+              <li><input type="checkbox" class="task-check"> API integration practice</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Weather App with API</p>
+            </div>
+            <div class="week-status" id="weekStatus2">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">3</div>
+            <div class="week-text">
+              <h3>Week 3</h3>
+              <p>React Basics • JSX</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">JSX</span>
+              <span class="tag">Components</span>
+              <span class="tag">Props</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Setup React project</li>
+              <li><input type="checkbox" class="task-check"> Learn JSX and props</li>
+              <li><input type="checkbox" class="task-check"> Create reusable components</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Create a Product Card UI in React</p>
+            </div>
+            <div class="week-status" id="weekStatus3">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 4 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">4</div>
+            <div class="week-text">
+              <h3>Week 4</h3>
+              <p>React Hooks • Component Lifecycle</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">useState</span>
+              <span class="tag">useEffect</span>
+              <span class="tag">Lifecycle</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Learn useState</li>
+              <li><input type="checkbox" class="task-check"> Learn useEffect</li>
+              <li><input type="checkbox" class="task-check"> Fetch data from API</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>User Profile Fetch App</p>
+            </div>
+            <div class="week-status" id="weekStatus4">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 5 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">5</div>
+            <div class="week-text">
+              <h3>Week 5</h3>
+              <p>React Router • State Management</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">Routing</span>
+              <span class="tag">Context API</span>
+              <span class="tag">State</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Setup React Router</li>
+              <li><input type="checkbox" class="task-check"> Learn Context API</li>
+              <li><input type="checkbox" class="task-check"> Share state across pages</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Multi-Page Shopping Cart App</p>
+            </div>
+            <div class="week-status" id="weekStatus5">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 6 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">6</div>
+            <div class="week-text">
+              <h3>Week 6</h3>
+              <p>Backend Basics • Node.js • Express</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Express</span>
+              <span class="tag">REST API</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Setup Node and Express</li>
+              <li><input type="checkbox" class="task-check"> Create REST API routes</li>
+              <li><input type="checkbox" class="task-check"> Handle request and response</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Build a Notes API</p>
+            </div>
+            <div class="week-status" id="weekStatus6">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 7 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">7</div>
+            <div class="week-text">
+              <h3>Week 7</h3>
+              <p>Database • MongoDB • CRUD</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">MongoDB</span>
+              <span class="tag">Mongoose</span>
+              <span class="tag">CRUD</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Connect MongoDB database</li>
+              <li><input type="checkbox" class="task-check"> Perform CRUD operations</li>
+              <li><input type="checkbox" class="task-check"> Store app data in DB</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Mini Project:</h4>
+              <p>Student Task Manager</p>
+            </div>
+            <div class="week-status" id="weekStatus7">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK 8 -->
+      <div class="week-card">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-number">8</div>
+            <div class="week-text">
+              <h3>Week 8</h3>
+              <p>Full Stack Integration • Deployment</p>
+            </div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="week-content">
+          <div class="content-inner">
+            <div class="section-title">Skills to Learn</div>
+            <div class="tags">
+              <span class="tag">Frontend + Backend</span>
+              <span class="tag">Deployment</span>
+              <span class="tag">Testing</span>
+            </div>
+
+            <div class="task-title">Tasks</div>
+            <ul class="task-list">
+              <li><input type="checkbox" class="task-check"> Connect frontend with backend</li>
+              <li><input type="checkbox" class="task-check"> Test the full project</li>
+              <li><input type="checkbox" class="task-check"> Deploy project online</li>
+            </ul>
+
+            <div class="mini-project">
+              <h4>🚀 Final Project:</h4>
+              <p>Deploy your full CareerMate web application</p>
+            </div>
+            <div class="week-status" id="weekStatus8">Completed 0 / 3 tasks</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleWeek(header){
+    const card = header.parentElement;
+
+    document.querySelectorAll(".week-card").forEach(item=>{
+      if(item !== card){
+        item.classList.remove("active");
+      }
+    });
+
+    card.classList.toggle("active");
+  }
+
+  function updateProgress(){
+    const allChecks = document.querySelectorAll(".task-check");
+    const checked = document.querySelectorAll(".task-check:checked").length;
+    const total = allChecks.length;
+    const percent = Math.round((checked / total) * 100);
+
+    document.getElementById("progressFill").style.width = percent + "%";
+    document.getElementById("progressPercent").innerText = percent + "%";
+    document.getElementById("progressNote").innerText = checked + " of " + total + " tasks completed";
+
+    for(let i=1; i<=8; i++){
+      const weekCard = document.querySelectorAll(".week-card")[i-1];
+      const weekChecks = weekCard.querySelectorAll(".task-check");
+      const weekChecked = weekCard.querySelectorAll(".task-check:checked").length;
+      document.getElementById("weekStatus" + i).innerText =
+        "Completed " + weekChecked + " / " + weekChecks.length + " tasks";
+    }
+  }
+
+  document.querySelectorAll(".task-check").forEach(check=>{
+    check.addEventListener("change", updateProgress);
+  });
+
+  updateProgress();
+</script>
+
+</body>
+</html>

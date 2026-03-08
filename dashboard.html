@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerMate - Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f1f5f9;
+      height:100vh;
+      overflow:hidden;
+      color:#111827;
+    }
+
+    .container{
+      display:flex;
+      height:100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      width:240px;
+      background:#0f172a;
+      color:white;
+      position:fixed;
+      left:0;
+      top:0;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:20px;
+    }
+
+    .logo-box{
+      background:#6366f1;
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      font-weight:bold;
+    }
+
+    .logo p{
+      margin-top:10px;
+      font-weight:bold;
+    }
+
+    .logo span{
+      font-size:12px;
+      color:#9ca3af;
+    }
+
+    .menu{
+      list-style:none;
+      margin-top:30px;
+    }
+
+    .menu li{
+      padding:12px;
+      border-radius:8px;
+      margin-bottom:8px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .menu li:hover{
+      background:#1e293b;
+    }
+
+    .menu .active{
+      background:#2563eb;
+    }
+
+    .menu i{
+      width:18px;
+      height:18px;
+    }
+
+    .logout{
+      background:#ef4444;
+      border:none;
+      padding:12px;
+      border-radius:8px;
+      color:white;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      width:100%;
+    }
+
+    /* MAIN */
+    .main{
+      margin-left:240px;
+      width:calc(100% - 240px);
+      height:100vh;
+      overflow-y:auto;
+      padding:32px;
+    }
+
+    .header{
+      margin-bottom:24px;
+    }
+
+    .header h1{
+      font-size:32px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      color:#6b7280;
+      font-size:15px;
+    }
+
+    /* CARDS */
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      margin-bottom:24px;
+    }
+
+    .card{
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.05);
+      padding:22px;
+    }
+
+    .stat-card{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .stat-card small{
+      color:#9ca3af;
+      font-size:13px;
+      display:block;
+      margin-bottom:8px;
+    }
+
+    .stat-card h3{
+      font-size:28px;
+      margin-bottom:6px;
+    }
+
+    .stat-card p{
+      color:#9ca3af;
+      font-size:12px;
+    }
+
+    .icon-badge{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .icon-green{
+      background:#dcfce7;
+      color:#16a34a;
+    }
+
+    .icon-blue{
+      background:#dbeafe;
+      color:#2563eb;
+    }
+
+    .icon-purple{
+      background:#f3e8ff;
+      color:#9333ea;
+    }
+
+    .chart-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      margin-bottom:24px;
+    }
+
+    .card h4{
+      font-size:18px;
+      margin-bottom:16px;
+    }
+
+    .tag-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      margin-bottom:24px;
+    }
+
+    .title-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:bold;
+      margin-bottom:14px;
+    }
+
+    .title-row i{
+      width:20px;
+      height:20px;
+    }
+
+    .green{
+      color:#16a34a;
+    }
+
+    .orange{
+      color:#ea580c;
+    }
+
+    .blue{
+      color:#2563eb;
+    }
+
+    .purple{
+      color:#9333ea;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .tag{
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:13px;
+      border:1px solid transparent;
+    }
+
+    .tag.green-tag{
+      background:#f0fdf4;
+      color:#15803d;
+      border-color:#bbf7d0;
+    }
+
+    .tag.orange-tag{
+      background:#fff7ed;
+      color:#c2410c;
+      border-color:#fed7aa;
+    }
+
+    .bottom-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+    }
+
+    .list-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 0;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .list-item:last-child{
+      border-bottom:none;
+    }
+
+    .list-item p{
+      font-weight:bold;
+      margin-bottom:4px;
+    }
+
+    .list-item small{
+      color:#9ca3af;
+      font-size:12px;
+    }
+
+    .score{
+      font-weight:bold;
+    }
+
+    .score.blue{
+      color:#2563eb;
+    }
+
+    .score.yellow{
+      color:#eab308;
+    }
+
+    canvas{
+      max-width:100%;
+    }
+
+    @media(max-width:1000px){
+      .stats-grid,
+      .chart-grid,
+      .tag-grid,
+      .bottom-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:900px){
+      .sidebar{
+        width:200px;
+      }
+
+      .main{
+        margin-left:200px;
+        width:calc(100% - 200px);
+        padding:20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div>
+      <div class="logo">
+        <div class="logo-box">CM</div>
+        <p>CareerMate</p>
+        <span>AI Career Guide</span>
+      </div>
+
+      <ul class="menu">
+        <li class="active">
+         
+          Dashboard
+        </li>
+        <li onclick="window.location.href='roadmap.html'">
+       
+          Roadmap
+        </li>
+        <li onclick="window.location.href='courses.html'">
+         
+          Courses
+        </li>
+        <li onclick="window.location.href='job.html'">
+        
+          Jobs
+        </li>
+        <li onclick="window.location.href='mock.html'">
+    
+          Mock Interview
+        </li>
+        <li onclick="window.location.href='dailytask.html'">Daily Tasks</li>
+        
+      </ul>
+    </div>
+
+    <button class="logout" onclick="window.location.href='index.html'">
+     
+      Logout
+    </button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="header">
+      <h1>Welcome, John Doe!</h1>
+      <p>Your AI-powered career guide for Full Stack Developer</p>
+    </div>
+
+    <!-- TOP STATS -->
+    <div class="stats-grid">
+
+      <div class="card stat-card">
+        <div>
+          <small>Resume Status</small>
+          <h3>Analyzed</h3>
+          <p>Updated 2 hours ago</p>
+        </div>
+        <div class="icon-badge icon-green">
+          <i data-lucide="check-circle"></i>
+        </div>
+      </div>
+
+      <div class="card stat-card">
+        <div>
+          <small>Skills Progress</small>
+          <h3>8/20</h3>
+          <p>40% complete</p>
+        </div>
+        <div class="icon-badge icon-blue">
+          <i data-lucide="trending-up"></i>
+        </div>
+      </div>
+
+      <div class="card stat-card">
+        <div>
+          <small>Roadmap Progress</small>
+          <h3>Week 4</h3>
+          <p>25% of 8-week plan</p>
+        </div>
+        <div class="icon-badge icon-purple">
+          <i data-lucide="award"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHARTS -->
+    <div class="chart-grid">
+      <div class="card">
+        <h4>Skills Distribution</h4>
+        <canvas id="skillsChart" height="180"></canvas>
+      </div>
+
+      <div class="card">
+        <h4>Weekly Progress</h4>
+        <canvas id="progressChart" height="180"></canvas>
+      </div>
+    </div>
+
+    <!-- SKILLS TAGS -->
+    <div class="tag-grid">
+
+      <div class="card">
+        <div class="title-row green">
+          <i data-lucide="check-circle"></i>
+          <span>Skills You Know</span>
+        </div>
+        <div class="tags">
+          <span class="tag green-tag">JavaScript</span>
+          <span class="tag green-tag">React</span>
+          <span class="tag green-tag">Node.js</span>
+          <span class="tag green-tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title-row orange">
+          <i data-lucide="alert-circle"></i>
+          <span>Missing Skills</span>
+        </div>
+        <div class="tags">
+          <span class="tag orange-tag">Docker</span>
+          <span class="tag orange-tag">AWS</span>
+          <span class="tag orange-tag">GraphQL</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM LISTS -->
+    <div class="bottom-grid">
+
+      <div class="card">
+        <div class="title-row blue">
+          <i data-lucide="briefcase"></i>
+          <span>Recommended Jobs</span>
+        </div>
+
+        <div class="list-item">
+          <div>
+            <p>Senior React Developer</p>
+            <small>Tech Corp</small>
+          </div>
+          <span class="score blue">65%</span>
+        </div>
+
+        <div class="list-item">
+          <div>
+            <p>Frontend Developer</p>
+            <small>Innovate Labs</small>
+          </div>
+          <span class="score blue">72%</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title-row purple">
+          <i data-lucide="book-open"></i>
+          <span>Recommended Courses</span>
+        </div>
+
+        <div class="list-item">
+          <div>
+            <p>Advanced React Patterns</p>
+            <small>Udemy</small>
+          </div>
+          <span class="score yellow">★ 4.8</span>
+        </div>
+
+        <div class="list-item">
+          <div>
+            <p>Docker Mastery</p>
+            <small>Coursera</small>
+          </div>
+          <span class="score yellow">★ 4.7</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  new Chart(document.getElementById('skillsChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Skills Known', 'Missing Skills'],
+      datasets: [{
+        data: [8, 12],
+        backgroundColor: ['#3b82f6', '#ec4899']
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('progressChart'), {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      datasets: [{
+        label: 'Skills',
+        data: [3, 5, 7, 9],
+        borderColor: '#3b82f6',
+        backgroundColor: 'transparent',
+        tension: 0.3,
+        pointBackgroundColor: '#3b82f6'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 12
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
